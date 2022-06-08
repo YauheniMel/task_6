@@ -1,0 +1,14 @@
+@import './styles/font.scss';
+@import './styles/variables';
+
+
+body, html {
+  font-family: Poppins, sans-serif;
+  color: $text_primary-color-light;
+  background-color: $primary-color-light;
+}
+
+.container {
+  max-width: 1480px;
+  margin: 0 auto;
+}
