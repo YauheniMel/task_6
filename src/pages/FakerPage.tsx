@@ -1,5 +1,7 @@
+import { Box } from '@mui/material';
 import React, { FC } from 'react';
 import Form from '../components/Form/Form';
+import Seed from '../components/Seed/Seed';
 import TableComponent from '../components/Table/TableComponent';
 
 const fakeData = [
@@ -294,12 +296,15 @@ const FakerPage: FC<any> = function ({
   return (
     <div className="container">
       <h2>FAKER</h2>
-      <Form
-        selectCountry={selectCountry}
-        setCountMistakes={setCountMistakes}
-        mistakes={mistakes}
-        country={country}
-      />
+      <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+        <Form
+          selectCountry={selectCountry}
+          setCountMistakes={setCountMistakes}
+          mistakes={mistakes}
+          country={country}
+        />
+        <Seed />
+      </Box>
       <TableComponent data={fakeData} />
     </div>
   );
