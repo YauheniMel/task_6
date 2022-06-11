@@ -1,0 +1,12 @@
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 190px;
+}
+
+.wrap {
+  display: flex;
+  column-gap: 20px;
+  padding-bottom: 20px;
+}

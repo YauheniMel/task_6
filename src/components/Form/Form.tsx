@@ -10,6 +10,8 @@ import {
 } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import classes from './Form.module.scss';
+import setCommand from '../../service/set-command';
+import getData from '../../api/get-data';
 
 function valuetext(value: number) {
   return `${value} mistakes`;
@@ -20,12 +22,8 @@ const Form: FC<any> = function ({
   setCountMistakes,
   mistakes,
   country,
+  setData,
 }) {
-  function handleSubmit(e: any) {
-    e.preventDefault();
-    console.log('SUBMIT');
-  }
-
   const handleChangeSelect = (event: SelectChangeEvent) => {
     selectCountry(event.target.value);
   };
@@ -37,6 +35,16 @@ const Form: FC<any> = function ({
   const handleChangeInputNumber = (event: any) => {
     setCountMistakes(event.target.value);
   };
+
+  async function handleSubmit(e: any) {
+    e.preventDefault();
+
+    const command = setCommand(mistakes, country);
+
+    const data = await getData(command);
+
+    setData(data);
+  }
 
   return (
     <form
@@ -65,9 +73,9 @@ const Form: FC<any> = function ({
               required
             >
               <MenuItem value="" />
-              <MenuItem value="RUS">Russia</MenuItem>
-              <MenuItem value="LT">Lithuania</MenuItem>
-              <MenuItem value="USA">USA</MenuItem>
+              <MenuItem value="ru">Russia</MenuItem>
+              <MenuItem value="de">Germany</MenuItem>
+              <MenuItem value="en">England</MenuItem>
             </Select>
           </div>
           <div className={classes.mistakes}>
@@ -91,7 +99,7 @@ const Form: FC<any> = function ({
               variant="standard"
               onChange={handleChangeInputNumber}
               value={mistakes}
-              InputProps={{ inputProps: { min: 0, max: 1000 } }}
+              inputProps={{ step: '0.25', min: 0, max: 1000 }}
             />
           </div>
         </div>

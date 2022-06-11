@@ -7,31 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(
-  number: any,
-  id: any,
-  fullName: any,
-  address: any,
-  phone: any,
-) {
-  return {
-    number,
-    id,
-    fullName,
-    address,
-    phone,
-  };
-}
-
 const TableComponent: React.FC<any> = function ({ data }) {
-  const rows: any[] = [];
-
-  data.forEach((item: any) => {
-    rows.push(
-      createData(item.number, item.id, item.fullName, item.address, item.phone),
-    );
-  });
-
   return (
     <TableContainer
       component={Paper}
@@ -49,14 +25,18 @@ const TableComponent: React.FC<any> = function ({ data }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {data.map((row: any, idx: number) => (
             <TableRow key={row.id}>
               <TableCell align="center" component="th" scope="row">
-                {row.number}
+                {idx + 1}
               </TableCell>
               <TableCell align="center">{row.id}</TableCell>
-              <TableCell>{row.fullName}</TableCell>
-              <TableCell align="center">{row.address}</TableCell>
+              <TableCell>{row.name}</TableCell>
+              <TableCell align="center">
+                {`${row.address.code} `}
+                {row.address.city}
+                {row.address.address}
+              </TableCell>
               <TableCell align="left">{row.phone}</TableCell>
             </TableRow>
           ))}
