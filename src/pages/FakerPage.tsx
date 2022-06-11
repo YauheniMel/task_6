@@ -1,16 +1,21 @@
-import { Box } from '@mui/material';
 import React, { FC } from 'react';
+import { Box } from '@mui/material';
 import Form from '../components/Form/Form';
 import Seed from '../components/Seed/Seed';
 import TableComponent from '../components/Table/TableComponent';
+// import getData from '../api/get-data';
 
 const FakerPage: FC<any> = function ({
   country,
   mistakes,
   selectCountry,
   setCountMistakes,
-  data,
   setData,
+  data,
+  setCommand,
+  command,
+  page,
+  setPage,
 }) {
   return (
     <div className="container">
@@ -22,10 +27,17 @@ const FakerPage: FC<any> = function ({
           mistakes={mistakes}
           country={country}
           setData={setData}
+          setCommandStr={setCommand}
         />
-        <Seed setData={setData} />
+        <Seed setCommand={setCommand} setData={setData} />
       </Box>
-      <TableComponent data={data} />
+      <TableComponent
+        data={data}
+        command={command}
+        setData={setData}
+        page={page}
+        setPage={setPage}
+      />
     </div>
   );
 };

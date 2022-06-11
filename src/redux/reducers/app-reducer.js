@@ -10,11 +10,20 @@ export const setDataAction = (data) => ({
   type: 'SET-DATA',
   data,
 });
+export const setCommandAction = (command) => ({
+  type: 'SET-COMMAND',
+  command,
+});
+export const incrementPageAction = () => ({
+  type: 'INCREMENT-PAGE',
+});
 
 const initState = {
   country: '',
   mistakes: 3,
+  command: '',
   data: [],
+  page: 0,
 };
 
 // eslint-disable-next-line @typescript-eslint/default-param-last
@@ -42,7 +51,22 @@ function appReducer(state = initState, action) {
         data: [...action.data],
       };
 
-      console.log(stateCopy);
+      return stateCopy;
+    }
+    case 'SET-COMMAND': {
+      const stateCopy = {
+        ...state,
+        command: action.command,
+      };
+
+      return stateCopy;
+    }
+    case 'INCREMENT-PAGE': {
+      const stateCopy = {
+        ...state,
+        page: state.page + 1,
+      };
+
       return stateCopy;
     }
     default:

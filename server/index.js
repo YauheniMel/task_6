@@ -3,6 +3,8 @@ const express = require('express');
 const { Router } = require('express');
 const path = require('path');
 const fs = require('fs');
+const countMistakes = require('./helper/get-count-mistakes');
+const generateMistakes = require('./helper/set-mistakes');
 
 const app = express();
 
@@ -18,20 +20,39 @@ const ruData = path.resolve(__dirname, '../ru.json');
 const enData = path.resolve(__dirname, '../en.json');
 const deData = path.resolve(__dirname, '../de.json');
 
-app.post('/api/data', (req, res) => {
-  const { command } = req.body;
-  const location = command.match(/\|l:[a-z]{2}/)[0].slice(3, 5);
-  // eslint-disable-next-line no-nested-ternary
-  const data = location === 'ru' ? ruData : location === 'en' ? enData : deData;
+app.post('/api/data/:page', (req, res) => {
+  const { page = 0 } = req.params;
 
-  fs.readFile(data, (err, r) => {
-    if (err) throw new Error(err);
+  try {
+    const { command } = req.body;
+    const location = command.match(/\|l:[a-z]{2}/)[0].slice(3, 5);
+    // eslint-disable-next-line no-nested-ternary
+    const data =
+      location === 'ru' ? ruData : location === 'en' ? enData : deData;
 
-    const result = JSON.parse(r).slice(0, 10);
-    res.status(200).send(result);
-  });
-  console.log(command);
-  console.log(location);
+    const { moveCount, delCount, addCount } =
+      countMistakes.getCountMistakes(command);
+
+    fs.readFile(data, (err, r) => {
+      if (err) throw new Error(err);
+
+      const result = JSON.parse(r).slice(0, 20 + 10 * page);
+
+      const resultByMistakes = result.map((item) =>
+        generateMistakes.setMistakes(
+          item,
+          addCount,
+          delCount,
+          moveCount,
+          location
+        )
+      );
+
+      return res.status(200).send(resultByMistakes);
+    });
+  } catch (err) {
+    res.status(400).send(err);
+  }
 });
 
 app.listen(port, () => {
