@@ -4,13 +4,14 @@ import classes from './Seed.module.scss';
 import setSeedCommand from '../../service/set-seed-command';
 import getData from '../../api/get-data';
 
-const Seed: FC<any> = function ({ setData }) {
+const Seed: FC<any> = function ({ setData, setCommand }) {
   const [seedValue, setSeedValue] = useState();
 
   async function handleSubmit(e: any) {
     e.preventDefault();
 
     const command = setSeedCommand(seedValue);
+    setCommand(command);
 
     const data = await getData(command);
 

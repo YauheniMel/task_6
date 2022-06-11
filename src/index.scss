@@ -12,3 +12,20 @@ body, html {
   max-width: 1480px;
   margin: 0 auto;
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $primary-color-light;
+}
+
+.Toastify__toast {
+  font-size: 1rem;
+}
+
+.Toastify__progress-bar {
+  background: $primary-color-light !important;
+}

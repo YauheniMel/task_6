@@ -55,9 +55,9 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*.{tsx,ts,js,jsx}": "eslint --fix",
-    "**/*.{scss,css}": "npx stylelint --fix",
-    "**/*.{tsx,ts,md,js,jsx}": "npx prettier --write"
+    "**/*.{ts}": "eslint --fix",
+    "**/*.{css}": "npx stylelint --fix",
+    "**/*.{ts,md}": "npx prettier --write"
   },
   "eslintConfig": {
     "extends": [
