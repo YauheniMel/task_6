@@ -11,6 +11,7 @@ import {
 import CheckIcon from '@mui/icons-material/Check';
 import classes from './Form.module.scss';
 import setCommand from '../../service/set-command';
+import getData from '../../api/get-data';
 
 function valuetext(value: number) {
   return `${value} mistakes`;
@@ -21,6 +22,7 @@ const Form: FC<any> = function ({
   setCountMistakes,
   mistakes,
   country,
+  setData,
 }) {
   const handleChangeSelect = (event: SelectChangeEvent) => {
     selectCountry(event.target.value);
@@ -34,9 +36,14 @@ const Form: FC<any> = function ({
     setCountMistakes(event.target.value);
   };
 
-  function handleSubmit(e: any) {
+  async function handleSubmit(e: any) {
     e.preventDefault();
-    console.log(setCommand(mistakes, country));
+
+    const command = setCommand(mistakes, country);
+
+    const data = await getData(command);
+
+    setData(data);
   }
 
   return (

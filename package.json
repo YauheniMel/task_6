@@ -46,7 +46,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "dev": "concurrently \"npm start\" \"npm run server\"",
-    "server": "node ./server/faker/faker.js --prefix client",
+    "server": "nodemon ./server/index.js --prefix client",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx,tsx,ts}",
     "style": "stylelint **/*.{scss,css} -f verbose --fix",

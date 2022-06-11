@@ -2,12 +2,19 @@ import React, { FC, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import classes from './Seed.module.scss';
 import setSeedCommand from '../../service/set-seed-command';
+import getData from '../../api/get-data';
 
-const Seed: FC<any> = function () {
+const Seed: FC<any> = function ({ setData }) {
   const [seedValue, setSeedValue] = useState();
-  function handleSubmit(e: any) {
+
+  async function handleSubmit(e: any) {
     e.preventDefault();
-    console.log(setSeedCommand(seedValue));
+
+    const command = setSeedCommand(seedValue);
+
+    const data = await getData(command);
+
+    setData(data);
   }
 
   const handleChange = (event: any) => {
