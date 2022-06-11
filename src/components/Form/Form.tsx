@@ -23,6 +23,7 @@ const Form: FC<any> = function ({
   mistakes,
   country,
   setData,
+  setCommandStr,
 }) {
   const handleChangeSelect = (event: SelectChangeEvent) => {
     selectCountry(event.target.value);
@@ -40,6 +41,7 @@ const Form: FC<any> = function ({
     e.preventDefault();
 
     const command = setCommand(mistakes, country);
+    setCommandStr(command);
 
     const data = await getData(command);
 
